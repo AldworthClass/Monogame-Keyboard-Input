@@ -41,7 +41,7 @@ namespace Monogame_Keyboard_Input
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            pacLocation = new Rectangle(10, 10, 70, 70);
+            pacLocation = new Rectangle(10, 10, 75, 75);
             pacDirection = Direction.sleep;
 
             base.Initialize();
