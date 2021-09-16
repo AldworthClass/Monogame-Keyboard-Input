@@ -16,21 +16,11 @@ namespace Monogame_Keyboard_Input
         Texture2D pacLeftTexture;
         Texture2D pacRightTexture;
         Texture2D pacSleepTexture;
-        Texture2D pacTexture;
+        Texture2D pacTexture; // This stores the player texture to be used in the Draw() method
 
         Rectangle pacLocation;
 
-        Direction pacDirection;
-
-        enum Direction
-        {
-            up,
-            down,
-            left,
-            right,
-            sleep
-        }
-
+                
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -42,7 +32,6 @@ namespace Monogame_Keyboard_Input
         {
             // TODO: Add your initialization logic here
             pacLocation = new Rectangle(10, 10, 75, 75);
-            pacDirection = Direction.sleep;
 
             base.Initialize();
         }
@@ -69,31 +58,27 @@ namespace Monogame_Keyboard_Input
             
             if (keyboardState.IsKeyDown(Keys.Up))
             {
-                pacDirection = Direction.up;
                 pacTexture = pacUpTexture;
                 pacLocation.Y -= 2;
             }
             if (keyboardState.IsKeyDown(Keys.Down))
             {
-                pacDirection = Direction.down;
                 pacTexture = pacDownTexture;
                 pacLocation.Y += 2;
             }
             if (keyboardState.IsKeyDown(Keys.Left))
             {
-                pacDirection = Direction.left;
                 pacTexture = pacLeftTexture;
                 pacLocation.X -= 2;
             }
             if (keyboardState.IsKeyDown(Keys.Right))
             {
-                pacDirection = Direction.right;
                 pacTexture = pacRightTexture;
                 pacLocation.X += 2;
             }
+            // If pacman is not moving make him sleep
             if (!keyboardState.IsKeyDown(Keys.Up) && !keyboardState.IsKeyDown(Keys.Right) && !keyboardState.IsKeyDown(Keys.Left) && !keyboardState.IsKeyDown(Keys.Down))
             {
-                pacDirection = Direction.sleep;
                 pacTexture = pacSleepTexture;
             }
 
