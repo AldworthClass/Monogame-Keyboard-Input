@@ -19,7 +19,7 @@ namespace Monogame_Keyboard_Input
         Texture2D pacTexture; // This stores the player texture to be used in the Draw() method
 
         Rectangle pacLocation;
-
+        Vector2 pacSpeed;
                 
         public Game1()
         {
@@ -32,7 +32,7 @@ namespace Monogame_Keyboard_Input
         {
             // TODO: Add your initialization logic here
             pacLocation = new Rectangle(10, 10, 75, 75);
-
+            pacSpeed = new Vector2();
             base.Initialize();
         }
 
@@ -52,6 +52,8 @@ namespace Monogame_Keyboard_Input
         protected override void Update(GameTime gameTime)
         {
             keyboardState = Keyboard.GetState();
+            pacSpeed.X = 0;
+            pacSpeed.Y = 0;
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
@@ -59,23 +61,27 @@ namespace Monogame_Keyboard_Input
             if (keyboardState.IsKeyDown(Keys.Up))
             {
                 pacTexture = pacUpTexture;
-                pacLocation.Y -= 2;
+                pacSpeed.Y -= 2;
             }
             if (keyboardState.IsKeyDown(Keys.Down))
             {
                 pacTexture = pacDownTexture;
-                pacLocation.Y += 2;
+                pacSpeed.Y += 2;
             }
             if (keyboardState.IsKeyDown(Keys.Left))
             {
                 pacTexture = pacLeftTexture;
-                pacLocation.X -= 2;
+                pacSpeed.X -= 2;
             }
             if (keyboardState.IsKeyDown(Keys.Right))
             {
                 pacTexture = pacRightTexture;
-                pacLocation.X += 2;
+                pacSpeed.X += 2;
             }
+
+            pacLocation.X += (int)pacSpeed.X;
+            pacLocation.Y += (int)pacSpeed.Y;
+
             // If pacman is not moving make him sleep
             if (!keyboardState.IsKeyDown(Keys.Up) && !keyboardState.IsKeyDown(Keys.Right) && !keyboardState.IsKeyDown(Keys.Left) && !keyboardState.IsKeyDown(Keys.Down))
             {
